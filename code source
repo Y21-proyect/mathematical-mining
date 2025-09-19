@@ -1,9 +1,17 @@
 import os
 import time
 
-# y sin haberlo pensado, me ha salido un pareado
 
-dib=('ak]7!u!2U','azjyyXii','afmU1J4i','bcQEEii','bcQnAPD','c9yO3W','c9yO3W','c9yO3W','akLKfE]ayQRb','akLKfE]dDm0S','akLKfE[]AuGN','akLKfE]al[aX','dZZp(CSNajN7')
+
+
+# y sin haberlo pensado,
+# me ha salido un pareado
+
+
+
+
+dib=('ak]7!u!2U','azjyyXii','afmU1J4i','bcQEEii','bcQnAPD','c9yO3W','c9yO3W','c9yO3W','akLKfE]ayQRb',
+     'akLKfE]dDm0S','akLKfE[]AuGN','akLKfE]al[aX','dZZp(CSNajN7')
 
 
 def codg70(num,let,act):
@@ -18,10 +26,7 @@ def codg70(num,let,act):
 
       n=''
       s=0
-
       
-      #codificado a  base 70
-
       if act==1:
             for n in cod70:
                   if s==num:
@@ -45,29 +50,19 @@ def db70ab10(letrs):
       q=0
       llave=0
 
-      for n in letrs:  # proceso se hace escalonado de abajo hacia arriba, la llave 0
-                   # multiplica el cociente por 70, la llave 1 le suma el ultimo cociente
-                   # la llave 2 suma cocientes anteriores y multiplica por 70        
-
-            l=int(codg70(num,n,2)) # cambio de codigo base 70 a base 10
-            
+      for n in letrs: 
+            l=int(codg70(num,n,2))   
             if llave==2:
-                  p=l+(p*70) # multiplica por 70 operacion y suma resto hasta final de interación
-
-            if llave==1: # suma el primer resto al proceso de la llave 0 durante la segunda iteracion
+                  p=l+(p*70)
+            if llave==1: 
                   p= l+p
                   llave=2
-
-            if llave==0: # multiplicar ultimo cociente por 70
-                         # en la primera iteración
+            if llave==0: 
                   p=l*70
-                  llave=1
-
-              
+                  llave=1        
       n=str(p)  
-
       return(n)            
-            
+
 
 def db10ab5(num):
       cif=int(num)
@@ -87,8 +82,6 @@ def db10ab5(num):
 
       return(m)
 
-
-
 def db70ab5(num):
       
       num=db70ab10(num)
@@ -103,14 +96,14 @@ def animacion():
       s=''
       r=[]
       
-      dib=('ak]7!u!2U','azjyyXii','afmU1J4i','bcQEEii','bcQnAPD','c9yO3W','c9yO3W','c9yO3W','akLKfE]ayQRb','akLKfE]dDm0S','akLKfE[]AuGN','akLKfE]al[aX','dZZp(CSNajN7')
+      dib=('ak]7!u!2U','azjyyXii','afmU1J4i','bcQEEii','bcQnAPD','c9yO3W','c9yO3W','c9yO3W',
+      'akLKfE]ayQRb','akLKfE]dDm0S','akLKfE[]AuGN','akLKfE]al[aX','dZZp(CSNajN7')
 
       while p<13:
             if p==13:
                   break
             os.system('cls')
-            r.append(p) # crea la figura que se crea en cada iteración
-                        # dentro de la lista r
+            r.append(p) 
             q=12-p
             p=p+1
 
@@ -138,29 +131,66 @@ def animacion():
 
 
 
+intro= ('Este programa es parte de un trabajo altruista y tambien de retos que me propongo',
+       'La parte altruista és que facilita la vida a otras personas.',
+       'Lograr retos que te propones és bueno para la salud, mantiene tu autoestima fuerte.',
+       'Por ambas partes salgo beneficiado. No se si te suena esa frasecilla "ser inteligentemente egoísta"',
+       'o el refrán "ayudar a terceros és ayudarse a uno mismo"\n',
+       'Es un programa tipo codigo abierto, puedes ver el codigo de programación y cambiarlo con un',
+       'programa para hacer programas, tipo IDLE,. Es una forma de dar transparencia y que no está infectado\n\n',
+       'Si te gusta este programa y quieres saber más cosas cuirosas puedes visitar mi canal \n    de youtube https://www.youtube.com/@yogalidof.21 ',
+       'También visitar mi pagina y leer algunos libros gratis en \n    https://www.calameo.com/accounts/1582946  \n',
+       'O mi página de programas gratuitos de codigo abierto en https://github.com/y21-proyect', 
+       'No hace falta que des un like, no vivo de esto. Un saludo \n\n    Doc \n\n\n    Pulsa ENTER para continuar...','@',
+
+       'This program is part of an altruistic work and challenges that I propose to myself.',
+       'The altruistic part is that it makes life easier for other people.',
+       'Achieving challenges is good for your health, it keeps your self-esteem strong.',
+       'it is beneficial on two sides. I don`t know that little "be intelligently selfish"',
+       'or the saying "helping others is helping oneself"\n',
+       'It`s an open source type program, you can see the programming code and change it with a',
+       'program to make programs, type IDLE. It is a way of providing transparency and that it is not infected\n\n',
+       'If you like this program and want to know more curious things you can visit my channel \n    de youtube https://www.youtube.com/@yogalidof.21 ',
+       'Also visit my page and read some free books on \n    https://www.calameo.com/accounts/1582946  \n',
+       'Or my free open source programs page en https://github.com/y21-proyect',
+       'Some important, my webs are in spanhis lenguaje',
+       'You don`t need to give a like, I don`t live from this. Best regards \n\n    Doc \n\n\n    Press ENTER to continue...')
+
+
 
 
 title=['       MINERIA MATEMATICA','       MATHEMATICAL MINING']
 discard=['(Programa pico muestra)','(Peak sample program)']
 conf=['Cambiar configuracion idioma','Change lenguaje configuration']
+
 us=['Guia de uso','User guide']
-us_guide=['Pon el vocabulario dentro de un archivo de extension txt, ejemplo: lista.txt',
-       'Hay que poner una sola palabra para cada linea de texto. Ejemplo:','',
+us_guide=['Para buscar frases o textos usando el modo filón, has de añadir un ',
+       'diccionario que incluya todas las palabras que existan.',
+       'Para añadir el diccionario crea un archivo tipo txt y ponle el nombre',
+       'dictionary y dentro pon las palabras en una columna y sin espacios',
+       'libres. Ejemplo',
+       '',
        'almohadilla',
        'salvapantallas',
-       'arrojar','',
-       'El programa te pedirá el nombre del archivo. Escribe el que has creado',
-       'junto con su extension. Del ejemplo anterior sería lista.txt',
+       'arrojar',
+       '',
+       'El programa te pedirá el diccionario. Escribe el que has creado',
+       'junto con su extension diccionario.txt',
        'El programa guarda esta configuracion en memoria, no hace falta que',
-       'la vuelvas a hacer. Si quieres cambiar el vocabulario repite los mismo',
-       ' pasos o cambia sencillamente el contenido el archivo que creaste','',       '@',
-       'Put the vocabulary inside a txt extension file, example: lista.txt',
-       'You have to put a single word for each line of text. Example:','',
+       'la vuelvas a hacer. Si quieres cambiar el diccionario repite los mismo',
+       ' pasos o cambia sencillamente el contenido del archivo que creaste','',
+       '@',
+       'To search for phrases or texts using the seam mode, you have to add a ',
+       'dictionary of language that includes all the words that exist.',
+       'To add the dictionary create a txt file and name it dictionary',
+       'and inside put the words in a column and without spaces', 'free. Example'
+       ,'',
        'pad',
        'screensaver',
-       'throw','',
+       'throw',
+       '',
        'The program will ask you for the name of the file. Type in the one you',
-       'created along with its extension. From the above example it would be lista.txt',
+       'created dictionary.txt,',
        'The program saves this configuration in memory, you don not need to do it again.',
        'If you want to change your vocabulary, repeat the same ones steps or simply',
        'change the content of the file you created.']
@@ -168,7 +198,7 @@ us_guide=['Pon el vocabulario dentro de un archivo de extension txt, ejemplo: li
 meto=['Metodica matemática usada','Mathematical method used']
 metod=['Los dibujos de cualquier alfabeto son un codigo numérico en una base diferente a 10',
        'Se ve facilmente cambiando cada dibujo por un valor numérico diferente. En',
-       ' la lengua castellano por ejemplo sería: a=1, b=2, c=3.... z=27. Es un código',
+       'la lengua castellano por ejemplo sería: a=1, b=2, c=3.... z=27. Es un código',
        'numérico en base 27 que se puede pasar a base decimal. A modo de ejemplo la',
        'palabra amor se corresponde con el número 386.020. Si se hace lo mismo para',
        'frases usando el 0 como el valor del espacio, se puede cambiar perfectamente',
@@ -176,27 +206,37 @@ metod=['Los dibujos de cualquier alfabeto son un codigo numérico en una base di
        'puede pasar un libro, una enciclopedia y todo el conocimiento actual de la',
        'humanidad a un solo número tan largo como la distancia hasta estrellas o quizá',
        'más aún.','Esto lleva a deducir que los números tienen toda la información',
-       'actual, la perdida y la que aún no se ha creado ni encontrado ','',
-       'La minería matemática hace el proceso inverso al descrito de pasar textos a números',
-       'Aparece mucho sin sentido, y cuando sigues buscando aparece todo,',
-       'todo lo que se pueda aprender, absolutamente todo','@',
+       'actual, la perdida y la que aún no se ha creado ni encontrado ',
+       '',
+       'La minería matemática compone todas las palabras y textos posibles de un alfabeto',
+       'y donde aparece mucho sin sentido. Si buscas con paciencia aparece todo,',
+       'todo lo que se pueda aprender, absolutamente todo',
+       'Un ejemplo. El periodico que saldrá el mes próximo se podría componer hoy usando',
+       'combinaciones de palabras. El problema és reconocerlo entre todos erróneos',
+       '@',
        'Drawings of any alphabet are a numerical code on a base other than 10',
-       'It is easily seen by changing each drawing to a different numerical value.',
-       'In the Spanish language for example would be: a=1, b=2, c=3.... z=27. It is',
-       's a code numerical in base 27 that can be converted to decimal base.',
-       'By way of example, the word amor corresponds to the number 386,020.',
-       'if the same thing is done for phrases using 0 as the value of the space, it',
-       'can be changed perfectly to a number. And if all the signs and their combinations',
-       'are added, we will be able to take code for book, an encyclopedia and all the',
-       'current knowledge of the humanity as long as the distance to stars or perhaps',
-       'moreover. Tthe numbers have all the curren information, the lost one, and',
-       'the one that has not yet been created or found.','','Mathematical mining does',
-       'the reverse process of translating texts into numbers, a lot of meaninglessness',
-       'appears, and when you keep looking everything appears, everything that',
-       'can be learned, absolutely everything']
+       'It is easily seen by changing each drawing to a different numerical value. In',
+       'The Spanish language for example would be: A=1, B=2, C=3.... z=27. It is a code',
+       'numerical in base 27 that can be converted to decimal base. By way of example, the',
+       'word love corresponds to the number 386,020. If the same thing is done for',
+       'phrases using 0 as the value of the space, it can be changed perfectly',
+       'to a number the sentence. And if all the signs and their combinations are added, it is ',
+       'a book, an encyclopedia and all the current knowledge of the can pass',
+       'humanity to a single number as long as the distance to stars or perhaps',
+       'moreover.','This leads to the inference that the numbers have all the information',
+       'current, the lost and the one that has not yet been created or found',
+       '',
+       'Mathematical mining composes all the possible words and texts of an alphabet',
+       'And where a lot of nonsense appears. If you look patiently everything appears,',
+       'everything that can be learned, absolutely everything',
+       'One example: newspaper of next month can be composed today using combinations',
+       'of words, the trouble it is to recognice the true text inside fake texts.']
 
-abc=['Configurar vocabulario','Vocabulary configuration']
-made=['Indicar rango numérico e iniciar mineria', 'Indicate rank of numbers and start mining']
+abc=['Configurar diccionario','Dictionary configuration']
+made=['Vetas: explorar una región numérica buscando vetas',
+      'Explore a numerical region looking for veins']
+made2=['Filón: Buscar frase o texto a partir de su inicio',
+      'Seam: Look for a complete sentence or text using start word or first lines']
 selc=['  Seleccion: ','  Selection: ']
 folder=['Nombre del fichero -> ','Folder name -> ']
 head='\n\n'
@@ -205,13 +245,9 @@ mining=['Picando ','Itching ']
 mina={'Finalizado','End'}
 
 
-with open('diccionario.txt', 'r', encoding='utf-8') as voc: # incluye palabras diccionario a
-                                                            # programa
-     lineas = voc.readlines()
 
 
-
-def clear_console(): #FUNCION LIMPIAR CONSOLA
+def clear_console(): 
     if os.name == 'nt': # select system operative
         os.system('cls')     # window code for erase consol
         
@@ -222,7 +258,7 @@ def clear_console(): #FUNCION LIMPIAR CONSOLA
 
 
 
-def configuration(flag):
+def configuration(flag): 
     conf=''
     conf2=''
     temp=''
@@ -233,15 +269,11 @@ def configuration(flag):
 
         for conf in lineas:
             conf_txt=list(conf)
-
-    #print(conf_txt)
-    #input()
-
-    if flag=='2':  # carga diccionaro palabras
+    if flag=='2':  
         temp=conf[1:]
         return(temp)
 
-    if flag=='0': # carga configuracion idioma consola
+    if flag=='0': 
             if conf_txt[0]=='c':
                 return('0')
             else:
@@ -261,22 +293,15 @@ def configuration(flag):
 
             if conf== 'c' or conf=='e':
                 conf_txt[0]=conf
-
-                #print(conf_txt)
-
                 for conf in conf_txt:
-                    conf2=conf2+conf
-
-                #print(conf2)
-                #input()
-                    
+                    conf2=conf2+conf   
                 with open('config.txt', 'w', encoding='utf-8') as config:
                         config.write(conf2)
                 
                 return()
 
 
-def div(di,conf):
+def num_abc(di,conf):
 
 
     abc=[(' ','a','b','c','d','e','f','g','h','i','j','k','l','ll',
@@ -296,7 +321,7 @@ def div(di,conf):
     conf_txt=()
 
 
-    if conf=='0': # selector de abecediario castellano o ingles
+    if conf=='0':
         
         conf_txt=list(abc[0])
 
@@ -312,161 +337,187 @@ def div(di,conf):
     
     while True:
       
-            div=div-base_abc  # resta base a div
-            coc=coc+1 # suma veces restada base (cociente)
-            
-            #print('resta hecha:',div,coc)
-            
-            if div<base_abc and coc>base_abc: #si divideno menor a base y cociente mayor
-                for aux in conf_txt: #itera en base abecedario buscando resto                           
-                    if number==div: #localiza posicion listado letra correspondiente a resto
-                        aux2=aux+aux2
-                        
-                        #print('resto añadido',div,aux,'-->',aux2)
-                                       
+            div=div-base_abc  
+            coc=coc+1
+            if div<base_abc and coc>base_abc:
+                for aux in conf_txt:                   
+                    if number==div:
+                        aux2=aux+aux2                
                     number+=1
                 number=0
                 div=coc
                 coc=0
 
-            if div<base_abc and coc<base_abc: # si dividendo y coc inferiores a base
+            if div<base_abc and coc<base_abc: 
 
                 if div<0:
                     div+=base_abc
                     coc-=1
-
-
-                #print('coc menor que base',div,base_abc)
-
-                for aux in conf_txt: #itera en base abecedario buscando resto                       
-                    if number==div: #localiza posicion listado letra correspondiente a resto                            aux2=aux+aux2
-                         aux2=aux+aux2
-
-                         #print('resto añadido: ','(',aux2,')','--->',number,div,aux,coc)
-                            
+                for aux in conf_txt:                      
+                    if number==div: 
+                         aux2=aux+aux2 
                     number+=1
-
                 number=0
                                       
-                for aux in conf_txt: #itera en base abecedario buscando cociente
-                    if number==coc: #localiza posicion listado letra correspondiente a coc
-                         #print(number,coc,aux)
+                for aux in conf_txt:
+                    if number==coc: 
                          aux2=aux+aux2
-
-                         #print('cociente final :','(',aux,')','--->',number,aux, aux2)
-
                          return(aux2)
 
                     number+=1
-   
 
-def word(word): #buscador en diccionario diseñado
-                       #para palabras y frases, no letras sueltas
-        
-    lista=''
-    frase=('','')
-    palabra=''
-    number=0
-    key=False
 
-    for lista in word:
-        if lista==' ': # deteca espacio entre palabras y detecta de esta forma frases
-                       # cuando hay muchos espacios
-            number+=1
+def filon(config):
+      
+      abc=[(' ','a','b','c','d','e','f','g','h','i','j','k','l','ll',
+           'm','n','ñ','o','p','q','r','s','t','u','v','w','x','y','z'),
+           (' ','a','b','c','d','e','f','g','h','i','j','k','l','ll','m','n',
+           'o','p','q','r','s','t','u','v','w','x','y','z')]
 
-        if number==2:
-            frase=word.split(' ') # separa palabras de word desde espacios
-            key=True
+      mining=['Picando ','Itching ']
+      
+      head='\n\n'
+      marc='    '
+      long_abc=len(abc[0])
+      long_dic=0
+      mn=0
+      mx=0
+      cursor=0
+      conf=config
+      start_words='' 
+      palabra='' 
+      start_text=[] 
+      text=[] 
+      text2=[] 
+      text_alita=[] 
+      text_alita2=[] 
+      text_ido=[] 
+      love=0      
+      proveta=0 
+      proveta1=0
+      precipitado=''
+      key=False
 
-    for palabra in frase: # coje una a una palabras de frase entrada
-        if key==False:
-            palabra=word # si no se deteca frase pone en primer lugar la palabra word
-                         # y se desconecta el bucle de buscar más palabrs al finalizr
-                         # la comparación
+      if conf==0:    
+            print(head)
+            start_words=input('    Escribe letras o palabras de inicio de texto -->  ')
+            mx=int(input('    ¿cuantas palabras tiene la frase o texto? -->'))
+
+      else:
+            print(head)
+            start_words=input('    Write start letters o words --> ')
+            mx=int(input('    How many words are there inside text? -->'))
+
+      if ' ' in start_words: 
+            start_text=start_words.split(' ')
+      else:
+            text.append(start_words)
+
+      mn=len(start_text)
+
+      mx=mx-mn
+      proveta=mx
+      while proveta!=0: 
+            text.append(0)
+            proveta-=1
+
+      mx=len(text) 
+      mx-=1
+      
+      with open('dictionary.txt', 'r', encoding='utf-8') as dictionary:
+            diccionario = dictionary.readlines()
+
+            for palabra in diccionario:
+                  long_dic+=1           
+
+      print(head) 
+     
+      while True: 
+            cursor=0
+            text[0]+=1
+
+            for proveta in text: 
+                  if proveta==long_dic: 
+                        text[cursor]=0 
+                        text[cursor+1]+=1
+                  if text[mx]>long_dic-1: 
+                        text[mx]=long_dic-1
+                  cursor+=1          
+            cursor=0
+
+            for proveta in text: 
+                 for palabra in diccionario: 
+                       if cursor==proveta:
+                             palabra=palabra.replace('\n','')                       
+                             precipitado=precipitado+palabra+'¬' 
+                             cursor=0                           
+                             break
+                       cursor+=1
+
+            text2=precipitado.split('¬')
+            precipitado=''
+
+            text_alita=start_text+text2 
+
+            for proveta in text_alita:
+
+                  if proveta=='': 
+                        break
+                  else:
+                        for proveta2 in proveta:
+                              text_alita2.append(proveta2)
+
+                  text_alita2.append(' ') 
+
+            cursor=0
+            for proveta in text_alita2:   
+                  cursor=0
+                  for proveta2 in abc[conf]:   
+                        if proveta==proveta2:
+                              text_ido.append(cursor)
+                              break
+                        cursor+=1
+ 
+
+            mn=len(text_ido)
+            mn=mn-1
             
-        long_word=len(palabra)  # longitud palabra
-        long_word-=1
-        letr_word=list(palabra) # lista letras de la palabra enviada por otra funcion    
-        
-        for lista in lineas: # coje una a una palabras del diccionario para comparar
-                             # con word
-                             
-            lista=lista.replace('\n','')
-            #print('\n\nletr_word -->',letr_word)
+            for proveta in text_ido:
 
-            long_lista=len(lista)
-            long_lista-=1
+                 if cursor==mn:
+                        break
 
-            letr_lista=list(lista) # separa letras de la palabra lista sacada de diccionario
+                 love=love+proveta
+                 love=love*long_abc
+                 cursor+=1
 
-            #print('letr_lista -->',letr_lista)
-
-            number=0
+            start_words=''
+            for palabra in text_alita:
+                  start_words=start_words+palabra+' '
             
-            if long_word==long_lista: #compara longitud ambas palabras
-
-                #print('longitud de palabras igual:',long_word,long_lista)
-
-                for aux in letr_word: # compara ambas palabras letra a letra
-
-                    #print(number)
-
-                    if number>long_lista: # parche para python, por alguna razón rara sumaba más y daba
-                                          # errores
-                        number-=1
-
-                    #print('comparacion valor','[',number,']','--> ',letr_word[number],letr_lista[number])
-                    
-                    if letr_word[number]==letr_lista[number]: # si coincide letra resta
-                       long_word-=1                           # de su longitud
-
-                    if long_word==-1: # si el valor es cero, las palabra son iguales
-                                     # el if anterior salta del bucle e impide se ejecute
-                                     # este return
-
-                        #print('valor long_word,number',long_word,number)
-
-                        return(word)
-
-                    number+=1 
-
-            #else:
-                #print('longitud de palabras diferentes')
+            print(marc,mining[conf],'|---> ',love,' |---D ',start_words)
+            #print(marc, love)
+     
+            start_words=''
+            love=0
+            text_alita2=[]
+            text_ido=[]
                         
-animacion()
+            #input()
 
-clear_console()
+            for proveta in text: 
+                      if proveta!=long_dic-1:
+                           key=False
+                           break
+                      else:
+                           key=True
 
-print ('\n\n    Este programa es parte de un trabajo altruista y tambien de retos que me propongo')
-print ('    La parte altruista és que facilita la vida a otras personas.')
-print ('    Lograr retos que te propones és bueno para la salud, mantiene tu autoestima fuerte.')
-print ('    Por ambas partes salgo beneficiado. No se si te suena esa frasecilla "ser inteligentemente egoísta"')
-print ('    o el refrán "ayudar a terceros és ayudarse a uno mismo"\n\n')
-print ('    Es un programa tipo codigo abierto, puedes ver el codigo de programación y cambiarlo con un')
-print ('    programa para hacer programas, tipo IDLE). Es una forma de dar transparencia y que no está infectado\n\n')
-print ('    Si te gusta este programa y quieres saber más cosas cuirosas puedes visitar mi canal \n    de youtube https://www.youtube.com/@yogalidof.21 ')
-print ('    También visitar mi pagina y leer algunos libros gratis en \n    https://www.calameo.com/accounts/1582946  \n\n')
-print ('    O mi página de programas gratuitos de codigo abierto en https://github.com/y21-proyect') 
-print ('    No hace falta que des un like, no vivo de esto. Un saludo \n\n    Doc \n\n\n    Pulsa ENTER para continuar...')
+            if key==True:
+                  break
 
-print ('\n\n    This program is part of an altruistic work and challenges that I propose to myself.')
-print ('    The altruistic part is that it makes life easier for other people.')
-print ('    Achieving challenges is good for your health, it keeps your self-esteem strong.')
-print ('    it is beneficial on two sides. I don`t know that little "be intelligently selfish"')
-print ('    or the saying "helping others is helping oneself"\n\n')
-print ('    It`s an open source type program, you can see the programming code and change it with a')
-print ('    program to make programs, type IDLE. It is a way of providing transparency and that it is not infected\n\n')
-print ('    If you like this program and want to know more curious things you can visit my channel \n    de youtube https://www.youtube.com/@yogalidof.21 ')
-print ('    Also visit my page and read some free books on \n    https://www.calameo.com/accounts/1582946  \n\n')
-print ('    Or my free open source programs page en https://github.com/y21-proyect')
-print ('    Some important, my webs are in spanhis lenguaje')
-print ('    You don`t need to give a like, I don`t live from this. Best regards \n\n    Doc \n\n\n    Press ENTER to continue...')
-input('')
+      input('      --- END ---')
 
-
-
-
-
+      
 
 action=0
 config=0
@@ -474,53 +525,62 @@ diccio=''
 aux=''
 aux2=''
 aux3=''
-
 mx=0
 mn=0
-
-
 key=False
 
-
 config=int(configuration('0'))
-diccio=configuration('2')
-        
 
-#print(config, diccio)
-#input()
+animacion()     
+clear_console()
+print(head)
 
-while True:
+for aux in intro:
+      if config==0:
+            print(marc,aux)
+            if aux=='@':
+                  break
+
+      if config==1:
+            if key==True:
+                  print(marc,aux)
+            if aux=='@':
+                  key=True
+
+input()
     
     clear_console()
     aux=0
     key=False
     
     print(head)
-    print(marc,title[config])
-    print(marc,discard[config],'\n')
+    print(marc,title[config]) 
+    print(marc,discard[config],'\n') 
     print(marc,'1- '+conf[config])
     print(marc,'2- '+us[config])
     print(marc,'3- '+meto[config],'\n')
     print(marc,'4- '+abc[config])
     print(marc,'5- '+made[config])
+    print(marc,'7- '+made2[config])
     print(marc,'----------------------------------------------------')
 
     action=input(marc+str(selc[0]))
-    #print(action)
-    #input()
-
 
     print(head)
 
-    if action=='1':
+    if action=='1':  
+          clear_console()
+          
           configuration('1')
           config=int(configuration('0'))
           print(config)
           input()
 
-    elif action=='2':
+
+    elif action=='2': 
+        clear_console()
         
-        for aux in us_guide:
+        for aux in us_guide:  
             if config==0:
                 print(marc,aux)
                 if aux=='@':
@@ -533,7 +593,7 @@ while True:
         input()
            
 
-    elif action=='3':
+    elif action=='3': 
         for aux in metod:
             if config==0:
                 print(marc,aux)
@@ -548,7 +608,7 @@ while True:
         input()
 
 
-    elif action=='4':
+    elif action=='4': 
         while True:
             
             clear_console()
@@ -584,28 +644,12 @@ while True:
 
 
         while True:
-            
-            #print('llamando funcion')
-
             aux=str(mn)
             aux2=str(config)
 
-            aux2=div(mn,aux2)
+            aux2=num_abc(mn,aux2)
 
             print(marc,mining[config],'Max:',mx,'Min:',mn,'-->',aux2)
-
-            #print('envio a diccionario ----> ',aux2)
-
-            aux3=aux2
-            aux2=word(aux2)
-
-            #print('respuesta diccionario ----> ',aux2)
-
-            if aux2==aux3:
-                print(head)
-                print(marc,'ok ',mn,'====>>',aux2)
-                print(head)
-                input('')
 
             mn+=1
 
@@ -614,9 +658,8 @@ while True:
             
         print('\n',marc,' -- END --')
         input()
-        
-            #print(aux2,coc)
-            #input()
-                        
+                 
 
- 
+    elif action=='7':
+          clear_console()
+          filon(config)       
