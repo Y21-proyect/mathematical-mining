@@ -2,17 +2,12 @@ import os
 import time
 
 
-
-
 # y sin haberlo pensado,
 # me ha salido un pareado
 
 
-
-
 dib=('ak]7!u!2U','azjyyXii','afmU1J4i','bcQEEii','bcQnAPD','c9yO3W','c9yO3W','c9yO3W','akLKfE]ayQRb',
      'akLKfE]dDm0S','akLKfE[]AuGN','akLKfE]al[aX','dZZp(CSNajN7')
-
 
 def codg70(num,let,act):
       
@@ -97,7 +92,7 @@ def animacion():
       r=[]
       
       dib=('ak]7!u!2U','azjyyXii','afmU1J4i','bcQEEii','bcQnAPD','c9yO3W','c9yO3W','c9yO3W',
-      'akLKfE]ayQRb','akLKfE]dDm0S','akLKfE[]AuGN','akLKfE]al[aX','dZZp(CSNajN7')
+           'akLKfE]ayQRb','akLKfE]dDm0S','akLKfE[]AuGN','akLKfE]al[aX','dZZp(CSNajN7')
 
       while p<13:
             if p==13:
@@ -119,7 +114,7 @@ def animacion():
                   print('                                          '+s)
 
 
-            time.sleep(0.000000007)
+            time.sleep(0.0000007)
 
       time.sleep(0.7)
       
