@@ -370,16 +370,15 @@ def filon(config):
            'o','p','q','r','s','t','u','v','w','x','y','z')]
 
       mining=['Picando ','Itching ']
-      
       head='\n\n'
-      marc='    '
+      marc='    
       long_abc=len(abc[0])
       long_dic=0
       mn=0
       mx=0
       cursor=0
       conf=config
-      start_words='' 
+      start_words=''
       palabra='' 
       start_text=[] 
       text=[] 
@@ -387,66 +386,75 @@ def filon(config):
       text_alita=[] 
       text_alita2=[] 
       text_ido=[] 
-      love=0      
+      love=0 
       proveta=0 
       proveta1=0
       precipitado=''
       key=False
 
-      if conf==0:    
+      if conf==0: 
             print(head)
-            start_words=input('    Escribe letras o palabras de inicio de texto -->  ')
+            start_words=input('    Escribe palabra o palabras de inicio de texto -->  ')
             mx=int(input('    ¿cuantas palabras tiene la frase o texto? -->'))
 
       else:
             print(head)
-            start_words=input('    Write start letters o words --> ')
+            start_words=input('    Write start word o words --> ')
             mx=int(input('    How many words are there inside text? -->'))
 
-      if ' ' in start_words: 
+      if ' ' in start_words:
             start_text=start_words.split(' ')
       else:
-            text.append(start_words)
+            start_text.append(start_words)
 
       mn=len(start_text)
-
       mx=mx-mn
       proveta=mx
-      while proveta!=0: 
+      #print('\nNumero de casillas en matriz numerica: ',mx)        
+
+      while proveta!=0:
             text.append(0)
             proveta-=1
 
-      mx=len(text) 
+      mx=len(text)
       mx-=1
-      
+
+      text[0]+=1
+            
       with open('dictionary.txt', 'r', encoding='utf-8') as dictionary:
             diccionario = dictionary.readlines()
 
             for palabra in diccionario:
                   long_dic+=1           
+                                     
 
-      print(head) 
+      print(head)
+
      
       while True: 
             cursor=0
-            text[0]+=1
+            text[0]+=1 # Suma 1 a la primera casilla
 
-            for proveta in text: 
+            for proveta in text:                     
                   if proveta==long_dic: 
                         text[cursor]=0 
-                        text[cursor+1]+=1
+                        text[cursor+1]+=1 
+
                   if text[mx]>long_dic-1: 
                         text[mx]=long_dic-1
-                  cursor+=1          
+                  cursor+=1
+
+                 
             cursor=0
 
             for proveta in text: 
-                 for palabra in diccionario: 
-                       if cursor==proveta:
-                             palabra=palabra.replace('\n','')                       
-                             precipitado=precipitado+palabra+'¬' 
-                             cursor=0                           
+                  for palabra in diccionario: 
+                       if cursor==proveta: 
+                             palabra=palabra.replace('\n','')                         
+                             precipitado=precipitado+palabra+' '+'¬' 
+                             cursor=0                                
                              break
+
                        cursor+=1
 
             text2=precipitado.split('¬')
@@ -454,25 +462,20 @@ def filon(config):
 
             text_alita=start_text+text2 
 
-            for proveta in text_alita:
-
-                  if proveta=='': 
-                        break
-                  else:
-                        for proveta2 in proveta:
-                              text_alita2.append(proveta2)
-
-                  text_alita2.append(' ') 
-
+            for proveta in text_alita: 
+                  if proveta!='': 
+                        text_alita2.append(proveta)
+                        text_alita2.append(' ')
             cursor=0
-            for proveta in text_alita2:   
-                  cursor=0
-                  for proveta2 in abc[conf]:   
-                        if proveta==proveta2:
-                              text_ido.append(cursor)
-                              break
-                        cursor+=1
- 
+   
+            for proveta in text_alita2:
+                  for precipitado in proveta: 
+                        for proveta1 in abc[conf]:                               
+                              if proveta1==precipitado:
+                                    text_ido.append(cursor)
+                                    cursor=0
+                                    break
+                              cursor+=1
 
             mn=len(text_ido)
             mn=mn-1
@@ -483,22 +486,20 @@ def filon(config):
                         break
 
                  love=love+proveta
-                 love=love*long_abc
+                 love=love*long_abc              
                  cursor+=1
 
             start_words=''
+
             for palabra in text_alita:
                   start_words=start_words+palabra+' '
-            
+
             print(marc,mining[conf],'|---> ',love,' |---D ',start_words)
-            #print(marc, love)
      
             start_words=''
             love=0
             text_alita2=[]
             text_ido=[]
-                        
-            #input()
 
             for proveta in text: 
                       if proveta!=long_dic-1:
