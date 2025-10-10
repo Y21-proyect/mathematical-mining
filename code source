@@ -1,129 +1,15 @@
 import os
+import random
 import time
 
-
-# y sin haberlo pensado,
-# me ha salido un pareado
-
-
-dib=('ak]7!u!2U','azjyyXii','afmU1J4i','bcQEEii','bcQnAPD','c9yO3W','c9yO3W','c9yO3W','akLKfE]ayQRb',
-     'akLKfE]dDm0S','akLKfE[]AuGN','akLKfE]al[aX','dZZp(CSNajN7')
-
-def codg70(num,let,act):
-      
-      abc='a,b,c,d,e,f,g,h,i,j,k,l,ll,m,n,o,p,q,r,s,t,u,v,w,x,y,z'
-      ABC='A,B,C,D,E,F,G,H,I,J,K,L,LL,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z'
-      NUM='0,1,2,3,4,5,6,7,8,9'
-      SIMB= '¡,!,(,),[,],¬'
-
-      cod=abc+','+ABC+','+NUM+','+SIMB
-      cod70=cod.split(',')
-
-      n=''
-      s=0
-      
-      if act==1:
-            for n in cod70:
-                  if s==num:
-                        return(n)
-                  s+=1
-
-      if act==2:
-            for n in cod70:
-                  if n==let:
-                        return(s)
-                  s+=1
+               # y sin haberlo pensado,
+               # me ha salido un pareado
 
 
-def db70ab10(letrs):
-      num=0
-      l=0
-      n=''
-      m=''
-      o=0
-      p=0
-      q=0
-      llave=0
 
-      for n in letrs: 
-            l=int(codg70(num,n,2))   
-            if llave==2:
-                  p=l+(p*70)
-            if llave==1: 
-                  p= l+p
-                  llave=2
-            if llave==0: 
-                  p=l*70
-                  llave=1        
-      n=str(p)  
-      return(n)            
-
-
-def db10ab5(num):
-      cif=int(num)
-      llave=True
-      n=''
-      m=''
-      o=''
-      p=0
-      
-      while llave==True:
-            p=cif%5
-            cif=cif//5
-            m=str(p)+m
-            if cif<5:
-                  m=str(cif)+m
-                  llave=False
-
-      return(m)
-
-def db70ab5(num):
-      
-      num=db70ab10(num)
-      return(db10ab5(num))
-      
-
-def animacion():   
-
-      p=0
-      q=0
-      u=12
-      s=''
-      r=[]
-      
-      dib=('ak]7!u!2U','azjyyXii','afmU1J4i','bcQEEii','bcQnAPD','c9yO3W','c9yO3W','c9yO3W',
-           'akLKfE]ayQRb','akLKfE]dDm0S','akLKfE[]AuGN','akLKfE]al[aX','dZZp(CSNajN7')
-
-      while p<13:
-            if p==13:
-                  break
-            os.system('cls')
-            r.append(p) 
-            q=12-p
-            p=p+1
-
-            print('\n\n\n')
-
-            while q>0:
-                  print('')
-                  q=q-1
-                  
-            for s in r:
-                  s=db70ab5(dib[s])
-                  s=s.replace('4','').replace('3','y').replace('0',' ')
-                  print('                                          '+s)
-
-
-            time.sleep(0.0000007)
-
-      time.sleep(0.7)
-      
-      print('\n\n                                           (Yogalidof 21 Proyect)')
-
-      time.sleep(1)
-
-      os.system('cls')
-
+######  bloque info y lectura usuario
+######
+######
 
 
 intro= ('Este programa es parte de un trabajo altruista y tambien de retos que me propongo',
@@ -240,9 +126,28 @@ mining=['Picando ','Itching ']
 mina={'Finalizado','End'}
 
 
+# INFORMACION PAR AHCER PRESENTANCION
+
+Y21=     [('\n'),
+          ('               YOGALIDOF 21 PROYECT'),
+          ('                  Section O21  ')]
+
+seccion='O'
+
+codice=['17O5', '13O39O3', '10O315O3', '8O319O3', '7O321O3', '6O323O3', '6O323O3', '6O323O3', '6O323O3', '7O321O34D37U1', '8O319O34D13D14U11U1', '9O317O38D17U1', '12O311O39D19U1', '18O514D54U5']
+
+matrices=len(codice)-1
+criba=0
 
 
-def clear_console(): 
+
+
+######  funciones
+######
+######
+
+
+def clear_console(): #FUNCION LIMPIAR CONSOLA
     if os.name == 'nt': # select system operative
         os.system('cls')     # window code for erase consol
         
@@ -253,22 +158,168 @@ def clear_console():
 
 
 
-def configuration(flag): 
+def decodificado(matriz): # FUNCION DECODIFICAR INAMGEN PRESENTACION
+
+    global seccion
+
+    codigo=''
+    cod=''
+    espacios=''
+    espacio=0
+    letra=''
+    linea=''
+    
+    matriz_visual=[]
+
+    key=0  
+
+    for codigo in matriz:
+
+        #print(codigo)
+        
+        for cod in codigo:
+
+            if key==1:
+                espacio=int(cod)
+
+                #print('Proceso memorizar numero de letras hecho: ',espacio)
+                
+                while espacio!=0:
+                    linea=linea+letra
+                    espacio-=1
+                #print('Proceso memorizar numero de letras hecho: ',letra)
+                #print('Proceso 2 añadir letras finalizado: ',linea)
+                    
+                espacio=0
+                espacios=''
+                key=2
+
+            if cod==seccion or cod=='D' or cod=='U':
+                letra=cod
+                espacio=int(espacios)
+                while espacio!=0:
+                    linea=linea+' '
+                    espacio-=1
+                    
+                #print('Proceso memorizar letra hecho: ',letra)
+                #print('Proceso 1 añadir espacios finalizado: ',linea)
+                
+                key=1
+                
+            if key==0:
+                espacios=espacios+cod
+                
+                #print('Proceso 0 recogida espacios en curso: ',espacios,key)
+
+            if key==2:
+                key=0
+                espacio=0
+
+
+        linea=linea.replace('D','2').replace('U','1')
+        matriz_visual.append(linea)
+        linea=''
+        espacio=0
+
+        #print('Proceso 2 añadir a matriz finalizado: ',matriz_visual)
+
+        #input()
+
+    #for letra in matriz_visual:
+    #    print(letra)
+
+    return(matriz_visual)  
+
+
+def mineria(O): # FUNCION CREAR PRESENTACION
+
+    global matrices
+    global criba
+
+    escenario=O
+    linea=''
+    letras=()
+    
+    long_matriz=len(O)-1
+    long_linea=0
+    azar_linea=0
+    azar_caracter=0
+    
+    carac_cambiantes=7
+    ciclos_completos=14
+
+    aux=carac_cambiantes
+    cribado=0
+
+    matriz_visual=[]
+
+    while ciclos_completos!=0:
+        azar_linea=random.randint(0,long_matriz) # valor al azar numero lineas
+        linea=escenario[azar_linea] # linea al azar
+
+        #print('Linea al azar elegida',linea)
+        
+        long_linea=len(linea)-1 # longitud linea al azar
+        letras=list(linea)
+
+        aux=long_linea
+
+       #print('Linea antes de cambios',letras)
+
+        while aux!=0:
+            
+            letras[random.randint(0,long_linea)]=' '
+            
+            aux-=1
+
+        linea=''.join(letras)
+
+        #print('Linea después de cambios',linea)
+
+        matriz_visual.append(linea)
+
+        ciclos_completos-=1
+
+    print('\n\n\n')
+    
+    for letra in matriz_visual[0:matrices]:  #imprime visualmente parte matriz alterada
+        print('                               ',letra)
+    for letra in O[matrices:]:               #imprime visualmente parte matriz no alterada
+        print('                               ',letra)
+
+    #print(cribado,matrices)
+
+    criba+=1 # relentiza efecto visula de búsqueda en la presentacion
+    
+    if criba==4:
+       matrices-=1
+       criba=0
+
+    #print(criba,matrices)
+
+    #input()
+
+
+def configuration(flag): # FUNCION CONFIGURACION IDIOMA
     conf=''
     conf2=''
     temp=''
-    conf_txt=[]
+    conf_txt=[]     
    
     with open('config.txt', 'r', encoding='utf-8') as config:
         lineas = config.readlines()
 
         for conf in lineas:
             conf_txt=list(conf)
-    if flag=='2':  
+
+    #print(conf_txt)
+    #input()
+
+    if flag=='2':  # carga diccionaro palabras
         temp=conf[1:]
         return(temp)
 
-    if flag=='0': 
+    if flag=='0': # carga configuracion idioma consola
             if conf_txt[0]=='c':
                 return('0')
             else:
@@ -283,20 +334,27 @@ def configuration(flag):
             print('     CONFIGURACION DE IDIOMA - LENGUAJE CONFIGURATION\n')
             print('     c - Castellano')
             print('     e - English')
-            print('-----------------------')
+            print('     -----------------------')
             conf=input('     Elige idioma/ Select lenguaje: ')
 
             if conf== 'c' or conf=='e':
                 conf_txt[0]=conf
+
+                #print(conf_txt)
+
                 for conf in conf_txt:
-                    conf2=conf2+conf   
+                    conf2=conf2+conf
+
+                #print(conf2)
+                #input()
+                    
                 with open('config.txt', 'w', encoding='utf-8') as config:
                         config.write(conf2)
                 
                 return()
 
 
-def num_abc(di,conf):
+def num_abc(di,conf): # CONVERSOR NUMERO A PALABRA
 
 
     abc=[(' ','a','b','c','d','e','f','g','h','i','j','k','l','ll',
@@ -316,7 +374,7 @@ def num_abc(di,conf):
     conf_txt=()
 
 
-    if conf=='0':
+    if conf=='0': # selector de abecediario castellano o ingles
         
         conf_txt=list(abc[0])
 
@@ -332,31 +390,49 @@ def num_abc(di,conf):
     
     while True:
       
-            div=div-base_abc  
-            coc=coc+1
-            if div<base_abc and coc>base_abc:
-                for aux in conf_txt:                   
-                    if number==div:
-                        aux2=aux+aux2                
+            div=div-base_abc  # resta base a div
+            coc=coc+1 # suma veces restada base (cociente)
+            
+            #print('resta hecha:',div,coc)
+            
+            if div<base_abc and coc>base_abc: #si divideno menor a base y cociente mayor
+                for aux in conf_txt: #itera en base abecedario buscando resto                           
+                    if number==div: #localiza posicion listado letra correspondiente a resto
+                        aux2=aux+aux2
+                        
+                        #print('resto añadido',div,aux,'-->',aux2)
+                                       
                     number+=1
                 number=0
                 div=coc
                 coc=0
 
-            if div<base_abc and coc<base_abc: 
+            if div<base_abc and coc<base_abc: # si dividendo y coc inferiores a base
 
                 if div<0:
                     div+=base_abc
                     coc-=1
-                for aux in conf_txt:                      
-                    if number==div: 
-                         aux2=aux+aux2 
+
+
+                #print('coc menor que base',div,base_abc)
+
+                for aux in conf_txt: #itera en base abecedario buscando resto                       
+                    if number==div: #localiza posicion listado letra correspondiente a resto                            aux2=aux+aux2
+                         aux2=aux+aux2
+
+                         #print('resto añadido: ','(',aux2,')','--->',number,div,aux,coc)
+                            
                     number+=1
+
                 number=0
                                       
-                for aux in conf_txt:
-                    if number==coc: 
+                for aux in conf_txt: #itera en base abecedario buscando cociente
+                    if number==coc: #localiza posicion listado letra correspondiente a coc
+                         #print(number,coc,aux)
                          aux2=aux+aux2
+
+                         #print('cociente final :','(',aux,')','--->',number,aux, aux2)
+
                          return(aux2)
 
                     number+=1
@@ -370,29 +446,39 @@ def filon(config):
            'o','p','q','r','s','t','u','v','w','x','y','z')]
 
       mining=['Picando ','Itching ']
+      
+
       head='\n\n'
-      marc='    
+      marc='    '
+
       long_abc=len(abc[0])
       long_dic=0
       mn=0
       mx=0
       cursor=0
       conf=config
-      start_words=''
-      palabra='' 
-      start_text=[] 
-      text=[] 
-      text2=[] 
-      text_alita=[] 
-      text_alita2=[] 
-      text_ido=[] 
-      love=0 
+      
+
+
+      start_words='' # aux
+      palabra='' #aux
+      start_text=[] #matriz palabras cabecera
+      text=[] # matriz texto en numeros sin cabecera
+      text2=[] # matriz texto en palabras sin cabecera
+      text_alita=[] # suma text + text2
+      text_alita2=[] # matriz letras txt_alita + espacios entre palabras
+      text_ido=[] # matriz text_alita2 en valores numéricos de abecedario
+      love=0 # valor final frase pasada a numero
+
+      
       proveta=0 
       proveta1=0
+
       precipitado=''
+
       key=False
 
-      if conf==0: 
+      if conf==0:    # recoge datos sobre inicio y longitud texto
             print(head)
             start_words=input('    Escribe palabra o palabras de inicio de texto -->  ')
             mx=int(input('    ¿cuantas palabras tiene la frase o texto? -->'))
@@ -402,80 +488,146 @@ def filon(config):
             start_words=input('    Write start word o words --> ')
             mx=int(input('    How many words are there inside text? -->'))
 
-      if ' ' in start_words:
+
+     # creacion cabezal 
+      if ' ' in start_words: # si hay espacios entre palabras trocea desde espacios
             start_text=start_words.split(' ')
       else:
-            start_text.append(start_words)
+            start_text.append(start_words) # si no hay espacios se entiende que és solo una palabra
 
-      mn=len(start_text)
+      mn=len(start_text) # si son varias palabras cuenta cuantas hay
+
       mx=mx-mn
-      proveta=mx
+      proveta=mx # recoge valor para crear matriz numerica
+
       #print('\nNumero de casillas en matriz numerica: ',mx)        
 
-      while proveta!=0:
+      while proveta!=0: #creacion matriz texto en numeros sin cabezal
             text.append(0)
             proveta-=1
 
-      mx=len(text)
+      #print('Matriz numerica creada: ',text)
+
+      mx=len(text) # obtencion medida matriz texto en numeros sin cabezal
       mx-=1
 
       text[0]+=1
+
+      #print('Casillas creadas para matriz numerica: ',text2,text)
+      #input()
+
             
       with open('dictionary.txt', 'r', encoding='utf-8') as dictionary:
             diccionario = dictionary.readlines()
 
-            for palabra in diccionario:
-                  long_dic+=1           
-                                     
+            for palabra in diccionario: # cuenta numero de palabras diccionario y asocia 1 valor a
+                  long_dic+=1           # numerico a cada una para procesar orden de uso
+                                        # las palabras se ordenan de 1 en adelante
 
-      print(head)
+
+      #print('Numero de palabras en diccionario',long_dic)
+
+      print(head) # imprimir marco superior pantalla
 
      
-      while True: 
+      while True: # incrementa casilla 1 y crea efecto contador de agua
+                  # de izquierda a derecha en texto sin cabezal
+                  # la casilla 0 nunca llega al valor de diccionaro porque
+                  # se borra y pone a 1 antes de pasar por while otra vez
+                  # cuenta de izquierda a derecha al ser un número
+
+            #print(text)
+            #input()
+            
             cursor=0
             text[0]+=1 # Suma 1 a la primera casilla
 
-            for proveta in text:                     
-                  if proveta==long_dic: 
-                        text[cursor]=0 
-                        text[cursor+1]+=1 
+            for proveta in text: # itera en cada casilla texto numeros sin cabecera
+                                 # creando efecto reloj de izquierda a derecha
 
-                  if text[mx]>long_dic-1: 
+                  #print('\nEntada matriz a contaje ciclo ',cursor,': ', text)
+           
+                  if proveta==long_dic: # si la casilla alcanza valor maximo de diccionario
+
+                        text[cursor]=0 # pon casilla a 0
+                        text[cursor+1]+=1 # incrementa en 1 casilla siguiente
+
+                  if text[mx]>long_dic-1: # conserva el valor máximo de casilla más
+                                              # a la derecha
+
                         text[mx]=long_dic-1
+
+                  #print('Salida matriz contaje ', cursor,': ',text,'\n')
+
                   cursor+=1
 
                  
             cursor=0
 
-            for proveta in text: 
-                  for palabra in diccionario: 
-                       if cursor==proveta: 
-                             palabra=palabra.replace('\n','')                         
-                             precipitado=precipitado+palabra+' '+'¬' 
-                             cursor=0                                
+            ###### obtencion frase
+            for proveta in text: # itera en valores numericos de texto numeros sin cabecera
+                  for palabra in diccionario: # itera en palabras del diccionario
+
+                       #print('filtrando valores: ', proveta,cursor,palabra)
+
+                       if cursor==proveta: #si coincide el numero obtenido con el de
+
+                             palabra=palabra.replace('\n','')
+                             
+                             precipitado=precipitado+palabra+' '+'¬' # ordena de forma inversa
+                             cursor=0                                # palabras, derecha a iquierda.
                              break
 
                        cursor+=1
 
+            #print('codificado valor numerico a letra: ',precipitado)
+
             text2=precipitado.split('¬')
             precipitado=''
 
-            text_alita=start_text+text2 
+            #print('Decodificado valor numerico a palabra: ',text,text2)
+            #input()
 
-            for proveta in text_alita: 
-                  if proveta!='': 
+            text_alita=start_text+text2 # frase completa en matriz de palabras y sin espacios
+
+            #print('frase en matriz:',text_alita)
+                      
+            ###### conversor del numero a la palabra correspondiente del diccionario
+            ######
+
+            for proveta in text_alita: # descomponer palabras en letras
+
+                  if proveta!='': # descarta espacios libres matriz
                         text_alita2.append(proveta)
-                        text_alita2.append(' ')
+                        text_alita2.append(' ') # añade espacio entre palabras
+
             cursor=0
-   
-            for proveta in text_alita2:
-                  for precipitado in proveta: 
-                        for proveta1 in abc[conf]:                               
+
+            #print('frase con espacios añadidos: ', text_alita2)
+
+                 
+            for proveta in text_alita2: # coje palabra a palabra
+
+                  #print('Entrada palabra a descomponer en números: ',proveta)
+               
+                  for precipitado in proveta: # coje letra a letra de palabra
+
+                        #print('Descomponiendo palabra: ',precipitado)
+                       
+                        for proveta1 in abc[conf]: # da valor abc numerico a letra
+                              
                               if proveta1==precipitado:
+
+                                    #print('la letra',precipitado,'tiene el valor --',cursor)
+                                    
                                     text_ido.append(cursor)
                                     cursor=0
                                     break
                               cursor+=1
+
+            #print('Descomposicon letras en numeros ',text_ido)
+           
+            #input()     
 
             mn=len(text_ido)
             mn=mn-1
@@ -484,24 +636,42 @@ def filon(config):
 
                  if cursor==mn:
                         break
-
+                  
+                 #print(love,proveta,long_abc)
+                 
                  love=love+proveta
-                 love=love*long_abc              
+                 
+                 #print(love,proveta,long_abc)
+                 
+                 love=love*long_abc
+                 
+                 #print(love,proveta,long_abc)
+
                  cursor+=1
+
+            # corrige error que arrastra programa con 1 cero más
+
+            #love=love/long_abc
 
             start_words=''
 
             for palabra in text_alita:
                   start_words=start_words+palabra+' '
-
+                  
+            #print('Valor pasado a numeros: ',text_ido)
             print(marc,mining[conf],'|---> ',love,' |---D ',start_words)
+            #print(marc, love)
      
             start_words=''
             love=0
             text_alita2=[]
             text_ido=[]
+                        
+            #input()
 
-            for proveta in text: 
+            for proveta in text: # cuando todos los valores de todas las casillas
+                                 # son iguales para el programa
+
                       if proveta!=long_dic-1:
                            key=False
                            break
@@ -511,9 +681,19 @@ def filon(config):
             if key==True:
                   break
 
+            #input() 
+
       input('      --- END ---')
 
       
+
+
+
+
+####### PROGRAMA PRINCIPAL
+#######
+#######
+
 
 action=0
 config=0
@@ -521,13 +701,46 @@ diccio=''
 aux=''
 aux2=''
 aux3=''
+
 mx=0
 mn=0
+
+ciclo=0
 key=False
+O=[]
+
 
 config=int(configuration('0'))
 
-animacion()     
+#### animacion inicio y presentacion
+####
+
+
+O=decodificado(codice)
+
+
+while action!=50:
+    mineria(O)
+    time.sleep(0.05)
+    clear_console()
+    action+=1
+
+#print(ciclo)
+
+#time.sleep(0.05)
+
+print('\n\n\n')       
+for aux in O:
+    print('                               ',aux)
+
+time.sleep(0.05)
+
+for aux in Y21:
+    print('                               ',aux)
+    time.sleep(0.05)
+
+input()
+
 clear_console()
 print(head)
 
@@ -543,15 +756,23 @@ for aux in intro:
             if aux=='@':
                   key=True
 
-input()
+      
+
+#print(config, diccio)
+
+input() # salir de informacion intro
+
+
+while True:     #### cuerpo programa
+                ####
     
     clear_console()
     aux=0
     key=False
     
     print(head)
-    print(marc,title[config]) 
-    print(marc,discard[config],'\n') 
+    print(marc,title[config]) ## titutlo
+    print(marc,discard[config],'\n') ## subtitulo
     print(marc,'1- '+conf[config])
     print(marc,'2- '+us[config])
     print(marc,'3- '+meto[config],'\n')
@@ -561,10 +782,14 @@ input()
     print(marc,'----------------------------------------------------')
 
     action=input(marc+str(selc[0]))
+    #print(action)
+    #input()
+
 
     print(head)
 
-    if action=='1':  
+    if action=='1':  ### configuracion de idioma
+
           clear_console()
           
           configuration('1')
@@ -573,9 +798,11 @@ input()
           input()
 
 
-    elif action=='2': 
+    elif action=='2': ###  guia de uso
+
         clear_console()
         
+        print(head)
         for aux in us_guide:  
             if config==0:
                 print(marc,aux)
@@ -589,7 +816,11 @@ input()
         input()
            
 
-    elif action=='3': 
+    elif action=='3': ### metodologia usada
+
+        clear_console()
+        
+        print(head)
         for aux in metod:
             if config==0:
                 print(marc,aux)
@@ -604,7 +835,7 @@ input()
         input()
 
 
-    elif action=='4': 
+    elif action=='4':  ## configurar diccionario
         while True:
             
             clear_console()
@@ -630,7 +861,7 @@ input()
                 break
             
             
-    elif action=='5':
+    elif action=='5': ## busqueda en vetas
 
         clear_console()
         print(head)
@@ -640,6 +871,9 @@ input()
 
 
         while True:
+            
+            #print('llamando funcion')
+
             aux=str(mn)
             aux2=str(config)
 
@@ -654,8 +888,11 @@ input()
             
         print('\n',marc,' -- END --')
         input()
-                 
+        
+            #print(aux2,coc)
+            #input()
+                        
 
-    elif action=='7':
+    elif action=='7': ## busqueda en filones
           clear_console()
-          filon(config)       
+          filon(config)    
