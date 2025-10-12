@@ -2,6 +2,8 @@ import os
 import random
 import time
 
+
+
                # y sin haberlo pensado,
                # me ha salido un pareado
 
@@ -126,15 +128,17 @@ mining=['Picando ','Itching ']
 mina={'Finalizado','End'}
 
 
-# INFORMACION PAR AHCER PRESENTANCION
+# INFORMACION PARA HACER PRESENTANCION
 
-Y21=     [('\n'),
-          ('               YOGALIDOF 21 PROYECT'),
-          ('                  Section O21  ')]
+Y21=     [('\n '),
+          ('              YOGALIDOF 21 PROYECT'),
+          ('                - Section O21 -'),
+          ('            Mathematical wisdom mining'),
+          ('         Minería matemática de la sabiduría')]
 
 seccion='O'
 
-codice=['17O5', '13O39O3', '10O315O3', '8O319O3', '7O321O3', '6O323O3', '6O323O3', '6O323O3', '6O323O3', '7O321O34D37U1', '8O319O34D13D14U11U1', '9O317O38D17U1', '12O311O39D19U1', '18O514D54U5']
+codice=['18O5', '12O311O3', '9O317O3', '7O321O3', '6O323O3', '5O325O3', '5O325O3', '5O325O3', '5O325O3', '6O323O34D37U1', '7O321O34D13D14U11U1', '8O319O38D17U1', '11O313O39D19U1', '18O515D54U5']
 
 matrices=len(codice)-1
 criba=0
@@ -304,8 +308,24 @@ def configuration(flag): # FUNCION CONFIGURACION IDIOMA
     conf=''
     conf2=''
     temp=''
-    conf_txt=[]     
-   
+    conf_txt=[]
+
+    directorio=os.getcwd() # obtiene la dirección donde se ejecuta el programa
+
+    for raiz,dirs,archivos in os.walk(directorio): # busca dentro de la carpeta
+          print (raiz,'1')
+          print (dirs,'2')
+          print (archivos,'3')
+          for archivo in archivos:
+                if archivo=='config.txt':
+                      print('ok---',archivo)
+                      temp='n'
+
+    if temp=='': # si no existe el fichero txt crea uno nuevo y le incluye c
+          with open('config.txt','w') as config:
+                config.write('c')
+
+    
     with open('config.txt', 'r', encoding='utf-8') as config:
         lineas = config.readlines()
 
@@ -315,7 +335,7 @@ def configuration(flag): # FUNCION CONFIGURACION IDIOMA
     #print(conf_txt)
     #input()
 
-    if flag=='2':  # carga diccionaro palabras
+    if flag=='2':  # carga diccionario palabras
         temp=conf[1:]
         return(temp)
 
@@ -334,7 +354,7 @@ def configuration(flag): # FUNCION CONFIGURACION IDIOMA
             print('     CONFIGURACION DE IDIOMA - LENGUAJE CONFIGURATION\n')
             print('     c - Castellano')
             print('     e - English')
-            print('     -----------------------')
+            print('-----------------------')
             conf=input('     Elige idioma/ Select lenguaje: ')
 
             if conf== 'c' or conf=='e':
@@ -802,7 +822,6 @@ while True:     #### cuerpo programa
 
         clear_console()
         
-        print(head)
         for aux in us_guide:  
             if config==0:
                 print(marc,aux)
@@ -817,10 +836,6 @@ while True:     #### cuerpo programa
            
 
     elif action=='3': ### metodologia usada
-
-        clear_console()
-        
-        print(head)
         for aux in metod:
             if config==0:
                 print(marc,aux)
@@ -895,4 +910,4 @@ while True:     #### cuerpo programa
 
     elif action=='7': ## busqueda en filones
           clear_console()
-          filon(config)    
+          filon(config)
