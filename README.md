@@ -1,4 +1,4 @@
-# mathematical-mining
+# mathematical mining wise
 
 ENGLISH
 
