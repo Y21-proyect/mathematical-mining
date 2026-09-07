@@ -1,0 +1,695 @@
+import numpy as np
+import tkinter as tk
+from tkinter import filedialog, messagebox
+from PIL import Image, ImageTk
+import os
+import time
+
+
+# THIS IS A COMPLICATES PROGRAM. IT NEED THE TXT DOCUMENT NAMED CARTA DE CONSTELACIONES
+# YOU CAN FIND THE TXT IN ME PROFILE OF JITHUB
+# I HAVE A BOOK ABOUT HOW IT WORKS. IT IS IN SPANISH LENGUJE. CONTACT WITH ME ABOUT
+
+
+telescopio = []
+mirilla_telescopio=np.zeros((10), dtype=np.uint16)
+
+astros=[]
+
+galaxia_activa=[0,0]
+onda=[0,0]
+
+percentil=0
+
+direccion_imagen=[]
+
+
+def cargar_imagenes():
+
+    imagen=''
+    anchura=0
+    altura=0
+    x=0
+    y=0
+
+    print('\n\n--- Loading images from memory')
+
+    if os.path.exists('lienzo.png'):
+        print("-- Found base image")
+    else:
+        print('-- Not foud base image')
+        anchura=704#+(704//8)+2
+        altura=560#+(560//8)+2
+            
+        img = Image.new('RGB', (anchura, altura), color=(0,0,0))
+
+        print(anchura,altura)
+
+        while y!=altura:
+            for x in range(0,anchura):
+                #print(x,y)
+                if x%8==0:
+                        img.putpixel((x,y),(70,70,70))
+
+            x=0
+            y+=1
+            #print(y)
+
+        x=0
+        y=0
+
+        while x!=anchura:
+            for y in range(0,altura):
+                #print(x,y)
+                if y%8==0:
+                    img.putpixel((x,y),(70,70,70))
+
+            y=0
+            x+=1
+
+        img.save('lienzo.png')
+        print('- Cretes base image lienzo.png')
+
+
+    if os.path.exists('imprimir.png'):
+        print("-- Found image imprimir")
+    else:
+        print('-- Not found imagea imprimir')
+        anchura=704
+        altura=560
+            
+        Image.new('RGB', (anchura, altura), color=(0,0,0)).save('imprimir.png')
+        print('- Created image to print imprimir.png')
+
+
+def abrir_cupula_telescopio():
+    
+    global altura
+    global anchura
+    global telescopio
+    global percentil
+
+    cuadrantes=0
+    agrupaciones=0
+    resto=0
+
+    print('\n\n--- Opening dome')
+
+
+    lienzo = Image.open('imprimir.png')
+
+    temp = np.array(lienzo)
+    altura, anchura, _ = temp.shape
+
+    plano=temp[:,:,:3]
+       
+    print('-- Imagen imprimir loaded')
+        
+    percentil=anchura*altura
+    agrupaciones=(anchura*altura)//64 
+                                     
+    resto=(anchura*altura)%64
+
+    if resto!=0:
+        print('ERROR - Number of pixels not multiple of 64\n'
+              '        Usa proportios 64*x y 64*y\n\n')
+        input()
+        return('error')
+ 
+    print('- Image dimensions: ',anchura,'x', altura)
+
+    direccion_imagen=np.zeros((altura//8,anchura//8,3), dtype=np.uint16)
+    print('\n-- Array of stelear dress created')
+    print('- Total values in array: ', (altura//8)+(anchura//8))
+    print('- Dimensions array: ', direccion_imagen.ndim)
+    print("- Hight, weight of array: ", direccion_imagen.shape)
+    print('- Tipe of array: ',direccion_imagen.dtype)
+
+    telescopio= np.zeros((altura//8,anchura//8,4), dtype=np.uint64)
+    print('\n-- Array de galaxis created')
+    print('- Total galaxis in array: ', (altura//8)+(anchura//8))
+    print('- Dimensions of array: ', telescopio.ndim)
+    print('- Hight, weight of array: ", telescopio.shape)
+    print('- Tipe of array: ',telescopio.dtype)
+
+
+
+    observacion=[]
+    cuadrante_y=0
+    cuadrante_x=0 
+    enfoque=[] 
+    pixel=[]
+    bit_activo=63
+    norte=0
+    este=0
+ 
+    print('\n\n--- calibrating telescope to quadrants')
+    print('-- First quadrant processed (', cuadrante_y,',',cuadrante_x,')')
+     
+    while True:
+
+        observacion=[fila[cuadrante_x:cuadrante_x+8] for fila in plano[cuadrante_y:cuadrante_y+8]]
+
+        for enfoque in observacion:
+            for pixel in enfoque:
+                if 255 in pixel:
+                    mascara = 1 << bit_activo
+                    telescopio[norte][este][0]= telescopio[norte][este][0] | mascara
+                    
+                bit_activo-=1
+
+        bit_activo=63
+
+        cuadrante_x+=8
+        este+=1
+        
+        if cuadrante_x>=anchura:
+            cuadrante_x=0
+            este=0
+
+            cuadrante_y+=8
+            norte+=1
+
+            if cuadrante_y>=altura:
+                break
+    print('-- Last quadrant processed: (',altura//8,',',anchura//8,')')
+    print('-- Dome opened and telescopy calibrated')
+  
+
+def carta_astros():
+    global astros
+    astro=0
+    indice=0
+    mascara=0
+    mascaraN=0b1111111100000000000000000000000000000000000000000000000000000000
+    mascaraO=0b1000000010000000100000001000000010000000100000001000000010000000
+    mascaraE=0b0000000100000001000000010000000100000001000000010000000100000001
+    mascara_aux=0b0
+    mascara1=1
+    mascara2=0
+
+    carrera=False
+
+    print('\n\n--- Opening chart of astros')
+    print('-- Loading chart of astros')
+    with open('carta constelaciones.txt','r',encoding='utf-8') as carta:
+
+        for a in carta:
+            indice+=1
+
+        print('- Found',indice,'astros')
+
+        astros= np.zeros((8,indice), dtype=np.uint64)
+
+        indice=0
+        a=''
+
+        carta.seek(0)
+
+        for a in carta:
+
+            mascara_aux=0
+            mascara1=0
+            mascara2=0
+          
+            astro=int(a,2)
+
+            astros[0][indice]=indice
+
+            astros[1][indice]=astro
+
+            astros[2][indice]=astro.bit_count()
+
+            astros[3][indice]=mascara_aux=(mascaraN & astro)>>55
+
+            astros[3][indice]= astros[3][indice] | ((mascara_aux>>7)<<21)
+
+            astros[3][indice]= astros[3][indice] | ((mascara_aux & 1)<<20)
+   
+            mascara_aux=mascaraO & astro
+            for b in [63,56,55,49,47,42,39,35,31,28,23,21,15,14,7,7]:
+                if carrera==False:
+                    mascara1=1 << b
+                    mascara1=mascara1 & mascara_aux
+                    carrera=True
+                else:
+                    mascara1>>=b
+                    mascara2=mascara2 | mascara1
+                    carrera=False
+
+            mascara2<<=10
+            astros[3][indice]= astros[3][indice] | mascara2
+
+
+            mascara_aux=mascaraE & astro
+            for b in [56,49,48,42,40,35,32,28,24,21,16,14,8,7,0,0]:                     
+                if carrera==False:
+                    mascara1=1 << b
+                    mascara1=mascara1 & mascara_aux
+                    carrera=True
+                else:
+                    mascara1>>=b
+                    astros[4][indice]=astros[4][indice] | mascara1
+                    carrera=False
+
+            astros[4][indice]<<=10
+            astros[5][indice]= (0b1 & astro)<<24
+            astros[6][indice]= 0b11111111 & astro
+           
+            astros[7][indice]= ((0b10000000 & astro)>>7)<<23
+
+            indice+=1
+      
+        print('- Loaded ',indice,'astros')
+        print('- Last value loaded')
+        print(bin(astros[1][indice-1]))
+
+
+
+def registro():
+
+        global telescopio
+        global astros
+
+        altura,anchura,_=telescopio.shape
+
+        y=0
+        x=0
+        indice=0
+        astro=0
+        coincidencia=False
+
+
+        print('\n\n--- Galaxy registry')
+       
+        print('-- Transfering value of observed galaxy registry to observatory')
+        while y<altura:
+            
+            if telescopio[y][x][0]!=0:
+                indice=0
+                coincidencia=False
+                for astro in astros[1]:
+                    if telescopio[y][x][0]==astro:
+                        coincidencia=True
+
+                        telescopio[y][x][1]=astro.bit_count()
+
+                        telescopio[y][x][2]=indice
+
+                        break
+
+                    indice+=1
+
+                if coincidencia==False:
+                    print('Math of astros in coodinate: (',y,',',x,') not find in chart of astros')
+                    print('Constelation value: ',bin(telescopio[y][x][0]))
+
+                
+            x+=1
+            if x==anchura:
+                x=0
+                y+=1
+
+        print('\n-- Transference finished')
+
+        indice=0
+
+        while indice>=1:
+            print('Binary value of constelation ',bin(telescopio[0][linea][0]))
+            print('Value of constelation 1',bin(telescopio[0][linea][2]))
+            print('Value of constelation 2 ',bin(telescopio[0][linea][3]))
+
+            linea+=1
+            input()
+
+  
+
+def epicentro():
+
+    global telescopio
+    global galaxia_activa
+    global percentil
+    y,x,_=telescopio.shape
+    aux=0
+    
+    print('\n\n--- Configurer coordenates of active galaxy')
+
+    while True:
+
+        print('-- Introduce coordenates in range (1,1) y (',x-2,y-2,')')
+        galaxia_activa[1]=int(input('- Coordenate x: '))
+        galaxia_activa[0]=int(input('- Coordenate y: '))
+
+        if galaxia_activa[0]<1 or galaxia_activa[1]<1 or galaxia_activa[0]>=y-1 or galaxia_activa[1]>=x-1:
+            print('wrong values')
+        else:
+            print('- Coordenates correct: ',galaxia_activa)
+            break
+
+    while True:
+
+        print('\n-- Concentration of white pixeles used')
+        aux=int(input('- Introduce %: '))
+
+        if aux>100:
+            print('Wrong value, it must be betwen 1 y 100. No use decimal')
+        else:
+            print('- % configurated: ',aux)
+            percentil=(aux*y*x*8)//100
+            print('Total pixels with %: ',percentil)
+            break    
+
+def onda():
+    global telescopio
+    global mirilla_telescopio
+    global astros
+    global galaxia_activa
+    global percentil
+
+    altura,anchura,_=telescopio.shape
+    top_anchura=anchura-1
+    top_altura=altura-1
+    long_astros=len(astros[0])
+    top_constelacion=len(astros[0])-1
+    cursor=0
+
+    indice_registro=0
+    revision=0
+    huella_colindante=0b0
+    
+    busqueda=True
+    percentil2=0
+    linea=[]
+    columna=[]
+    pixeles=0
+
+   
+    print('\n\n--- Making images')
+
+
+    if galaxia_activa[0]==0 or galaxia_activa[1]==0:
+
+        telescopio[1][1][0]= astros[1][1]
+        telescopio[1][1][1]= astros[1][2]
+        telescopio[1][1][2]= astros[1][0]
+
+        mirilla_telescopio[0]=0
+        mirilla_telescopio[1]=0
+        mirilla_telescopio[2]=0
+        mirilla_telescopio[3]=1
+        mirilla_telescopio[4]=0
+        mirilla_telescopio[5]=2
+        mirilla_telescopio[6]=1
+        mirilla_telescopio[7]=1
+        mirilla_telescopio[8]=1
+        mirilla_telescopio[9]=2
+
+
+    else:
+        mirilla_telescopio[0]=galaxia_activa[0]-1
+        mirilla_telescopio[1]=galaxia_activa[1]-1
+        mirilla_telescopio[2]=galaxia_activa[0]-1
+        mirilla_telescopio[3]=galaxia_activa[1]
+        mirilla_telescopio[4]=galaxia_activa[0]-1
+        mirilla_telescopio[5]=galaxia_activa[1]+1
+        mirilla_telescopio[6]=galaxia_activa[0]
+        mirilla_telescopio[7]=galaxia_activa[1]
+        mirilla_telescopio[8]=galaxia_activa[0]
+        mirilla_telescopio[9]=galaxia_activa[1]+1
+
+    telescopio[galaxia_activa[0]][galaxia_activa[1]][0]= astros[1][1]
+    telescopio[galaxia_activa[0]][galaxia_activa[1]][1]= astros[2][1]
+    telescopio[galaxia_activa[0]][galaxia_activa[1]][2]= astros[0][1]
+
+
+    print('-- Firsth active galaxy (',mirilla_telescopio[6],',',mirilla_telescopio[7],')')
+    print('- Binary value of firsth active galaxy: ',bin(telescopio[mirilla_telescopio[6]][mirilla_telescopio[7]][0]))
+    print('- Data about active galaxy registered in telescopy: ')
+    print('  Binary value')
+    print('  ',bin(telescopio[mirilla_telescopio[6]][mirilla_telescopio[7]][0]))
+    print('  Númber of bits: ',telescopio[mirilla_telescopio[6]][mirilla_telescopio[7]][1])
+    print('  Númber of constelation: ',telescopio[mirilla_telescopio[6]][mirilla_telescopio[7]][1])
+    print('- Values of telescopy peephole',mirilla_telescopio)
+
+    print('Values in chart of astros')
+    for a in range(0,7):
+        print(astros[a][1], bin(astros[a][1]))
+
+    input('\n-- Enter and begin travel')
+
+
+    revision=0
+    
+    while True:    
+
+            print('\n-- Procesign transitori galaxy en coordenates(',mirilla_telescopio[8],',',mirilla_telescopio[9],')')
+            print('- peephole value ',mirilla_telescopio)
+
+            huella_colindante=0
+
+            for cursor in [[0,1,5],[2,3,6],[4,5,7],[6,7,4]]:
+
+                print('Cursor value',cursor)
+                print(' Looking constelations of colindante galaxy y coordenates (',mirilla_telescopio[cursor[0]],',', mirilla_telescopio[cursor[1]],')' )
+                print(' Binary value of galaxy')
+                print('',telescopio[cursor[0]][cursor[1]][0])
+                
+                if cursor[0]==0:
+                    print(' Results observed in southwest framework:  ',bin(astros[cursor[2]][telescopio[mirilla_telescopio[cursor[0]]][mirilla_telescopio[cursor[1]]][2]]))
+                                                  
+                elif cursor[0]==2:
+                     print(' Results observed in sout framework:  ',bin(astros[cursor[2]][telescopio[mirilla_telescopio[cursor[0]]][mirilla_telescopio[cursor[1]]][2]]))
+                     
+                elif cursor[0]==4:
+                   print(' Results observed in southest framework:  ',bin(astros[cursor[2]][telescopio[mirilla_telescopio[cursor[0]]][mirilla_telescopio[cursor[1]]][2]]))
+
+                elif cursor[0]==6:
+                    print(' Results observed in est framework:  ',bin(astros[cursor[2]][telescopio[mirilla_telescopio[cursor[0]]][mirilla_telescopio[cursor[1]]][2]]))
+
+                print('colindant footprint ',bin(huella_colindante))                    
+                huella_colindante|= astros[cursor[2]][telescopio[mirilla_telescopio[cursor[0]]][mirilla_telescopio[cursor[1]]][2]]
+                print('colindant fooprint modified',bin(huella_colindante))
+
+                print('\n')
+            
+            print('- Colindant galaxy footprint created', bin(huella_colindante))
+
+   
+            indice_registro=0
+            
+            while busqueda==True:
+              
+                 if huella_colindante!=0:
+                                                                                                                                                                       
+                    # Busca coincidencia entre huella galaxia transitoria y huella galaxias colindantes.
+                    if (huella_colindante & astros[3][indice_registro]):
+                        print(' Math in framework west and north')
+                        print(' Colidant footprint:           ',bin(huella_colindante))
+                        print(' Condindant galaxy footprint: ',bin(astros[3][indice_registro]))
+                        busqueda=False
+                        break
+
+                    if (huella_colindante<<1) & astros[3][indice_registro]:
+                        print(' Math in framework west and nort moved to left')
+                        print(' Colidant footprint:           ',bin(huella_colindante<<1))
+                        print(' Transitorio galaxy footprint: ',bin(astros[3][indice_registro]))
+                        busqueda=False
+                        break
+
+                    if (huella_colindante>>1) & astros[3][indice_registro]:
+                        print(' Math in framework west and north moved to rigth')
+                        print(' colindant footprint:           ',bin(huella_colindante>>1))
+                        print(' Transitory galaxy footprint: ',bin(astros[3][indice_registro]))
+                        busqueda=False
+                        break
+
+                    if (huella_colindante>>23) & (astros[3][indice_registro]>>20):
+                        print(' Math in frameworks nortest and nortwest')
+                        print(' Colidant footprint:           ',bin(huella_colindante>>23))
+                        print(' Transitorio galaxy footptint: ',bin(astros[3][indice_registro]>>20))
+                        busqueda=False
+                        break
+
+                 
+                telescopio[mirilla_telescopio[8]][mirilla_telescopio[9]][2]+=1
+                telescopio[mirilla_telescopio[8]][mirilla_telescopio[9]][1]=astros[2][telescopio[mirilla_telescopio[8]][mirilla_telescopio[9]][2]]
+                telescopio[mirilla_telescopio[8]][mirilla_telescopio[9]][0]=astros[1][telescopio[mirilla_telescopio[8]][mirilla_telescopio[9]][2]]
+
+
+                indice_registro+=1
+                 
+                if indice_registro==top_constelacion:
+                    telescopio[mirilla_telescopio[8]][mirilla_telescopio[9]][0]=0
+                    telescopio[mirilla_telescopio[8]][mirilla_telescopio[9]][1]=0
+                    telescopio[mirilla_telescopio[8]][mirilla_telescopio[9]][2]=0
+                    indice_registro=0
+                    print('No math betwen astros and galaxys.')
+                    break
+                       
+
+            percentil2+=telescopio[mirilla_telescopio[8]][mirilla_telescopio[9]][1]
+            print('Number of pixelex value 1: ',percentil2,',maxim number of pixels', percentil)
+
+            if percentil2>=percentil:
+                print('% Percentil reach
+
+                resultado()
+
+                percentil2=telescopio[1][1][2]+1
+
+                telescopio[:]=0
+
+                if percentil2<top_constelacion:
+                    telescopio[galaxia_activa[0]][galaxia_activa[1]][0]= astros[1][percentil2]
+                    telescopio[galaxia_activa[0]][galaxia_activa[1]][1]= astros[2][percentil2]
+                    telescopio[galaxia_activa[0]][galaxia_activa[1]][2]= astros[0][percentil2]
+
+                    mirilla_telescopio[0]=galaxia_activa[0]-1
+                    mirilla_telescopio[1]=galaxia_activa[1]-1
+                    mirilla_telescopio[2]=galaxia_activa[0]-1
+                    mirilla_telescopio[3]=galaxia_activa[1]
+                    mirilla_telescopio[4]=galaxia_activa[0]-1
+                    mirilla_telescopio[5]=galaxia_activa[1]+1
+                    mirilla_telescopio[6]=galaxia_activa[0]
+                    mirilla_telescopio[7]=galaxia_activa[1]
+                    mirilla_telescopio[8]=galaxia_activa[0]
+                    mirilla_telescopio[9]=galaxia_activa[1]+1
+
+                    percentil2=0
+
+                else:
+                    print('Total of imagenes completed')
+                    return()
+            
+            else:          
+                         
+                mirilla_telescopio[[1,3,5,7,9]]+=1
+                print('Peephole moved',mirilla_telescopio)
+
+            if mirilla_telescopio[9]==top_anchura:
+                mirilla_telescopio[1]=0
+                mirilla_telescopio[3]=1
+                mirilla_telescopio[5]=2
+                mirilla_telescopio[7]=0
+                mirilla_telescopio[9]=1
+
+                
+                mirilla_telescopio[[0,2,4,6,8]]+=1
+                print(pixeles)
+
+                if mirilla_telescopio[8]==top_altura:
+                    print('\n\n- End of works whitout unfinished %')
+
+                    resultado()
+                    
+                    percentil2=telescopio[1][1][2]+1
+
+                    telescopio[:]=0
+
+                    if percentil2<top_constelacion:
+                        telescopio[galaxia_activa[0]][galaxia_activa[1]][0]= astros[1][percentil2]
+                        telescopio[galaxia_activa[0]][galaxia_activa[1]][1]= astros[2][percentil2]
+                        telescopio[galaxia_activa[0]][galaxia_activa[1]][2]= astros[0][percentil2]
+
+                        mirilla_telescopio[0]=galaxia_activa[0]-1
+                        mirilla_telescopio[1]=galaxia_activa[1]-1
+                        mirilla_telescopio[2]=galaxia_activa[0]-1
+                        mirilla_telescopio[3]=galaxia_activa[1]
+                        mirilla_telescopio[4]=galaxia_activa[0]-1
+                        mirilla_telescopio[5]=galaxia_activa[1]+1
+                        mirilla_telescopio[6]=galaxia_activa[0]
+                        mirilla_telescopio[7]=galaxia_activa[1]
+                        mirilla_telescopio[8]=galaxia_activa[0]
+                        mirilla_telescopio[9]=galaxia_activa[1]+1
+
+                        percentil2=0
+
+            busqueda=True
+
+            #input()
+
+    return()  
+    
+def resultado():
+
+    global telescopio
+
+    altura,anchura,_=telescopio.shape
+    y_galaxia=0
+    x_galaxia=0
+
+    anchura_lienzo=anchura*8
+    altura_lienzo=altura*8
+    y_lienzo=0
+    x_lienzo=0
+    x=0
+    y=0
+    constelacion=0
+    pixeles=''
+    pixel=''
+    
+    img = Image.open('lienzo.png').convert("RGBA")
+
+    while y_galaxia!=altura:
+
+        pixeles = str(bin(telescopio[y_galaxia][x_galaxia][0]))
+        pixeles=pixeles[2:]
+        if len(pixeles)<64:
+            while len(pixeles)!=64:
+                pixeles='0'+pixeles
+
+        if constelacion!=0:
+            print(pixeles)
+            input()
+
+        x=0
+        y=0
+                
+        for pixel in pixeles:
+            if pixel=='1':
+                img.putpixel((x_lienzo+x,y_lienzo+y),(255,255,255))
+               
+            x+=1
+
+            if x==8:
+                x=0
+                y+=1
+                if y==8:
+                    y=0  
+                #print(x,y)
+
+
+
+        x_galaxia+=1
+        x_lienzo+=8
+
+        if x_galaxia==anchura:
+            x_galaxia=0
+            y_galaxia+=1
+
+            x_lienzo=0
+            y_lienzo+=8
+            #input()
+
+    pixeles=''
+    pixeles='results/'+ str(telescopio[galaxia_activa[0]][galaxia_activa[1]][2])+'.png'
+    img.save(pixeles)
+    input('- Result print in ',pixeles)
+
+
+
+# MAIN
+
+print('---- ASTRONOMICAL OBSERVATORY V.10-GITHUB ----')
+
+cargar_imagenes()
+
+abrir_cupula_telescopio()
+
+carta_astros()
+
+registro()
+
+epicentro()
+
+onda()
